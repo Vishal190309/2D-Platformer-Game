@@ -5,19 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Animator animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private BoxCollider2D boxCollider2D;
     private bool crouched = false;
-    private Vector2 normalColliderSize = new Vector2(0.5507991f, 2.073027f);
-    private Vector2 crouchedColliderSize = new Vector2(0.7272125f, 1.358973f);
+    private Vector2 initColliderSize;
+    private Vector2 initColliderOffset;
+   
     void Start()
     {
-        
+        initColliderSize = boxCollider2D.size;
+        initColliderOffset = boxCollider2D.offset;
     }
 
     // Update is called once per frame
     void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
+        float vecticalInput = Input.GetAxisRaw("Vertical");
+        playJumpAnimation(vecticalInput);
         crouch(Input.GetKeyDown(KeyCode.LeftControl));
         Debug.Log(speed);
         if (animator != null)
@@ -47,15 +52,25 @@ public class PlayerController : MonoBehaviour
             crouched = !crouched;
             if (crouched)
             {
-                GetComponent<BoxCollider2D>().size = crouchedColliderSize;
-                GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, GetComponent<BoxCollider2D>().offset.y -0.4f);
+                Vector2 crouchedColliderSize = new Vector2(0.7272125f, 1.358973f);
+                Vector2 crouchedColliderOffset = new Vector2(0f, -0.4f);
+
+                boxCollider2D.size = crouchedColliderSize;
+                boxCollider2D.offset = new Vector2(initColliderOffset.x + crouchedColliderOffset.x, initColliderOffset.y + crouchedColliderOffset.y);
             }
             else
             {
-                GetComponent<BoxCollider2D>().size = normalColliderSize;
-                GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, GetComponent<BoxCollider2D>().offset.y + 0.4f);
-
+                boxCollider2D.size = initColliderSize;
+                boxCollider2D.offset = initColliderOffset;
             }
+        }
+    }
+
+    void playJumpAnimation(float vertical)
+    {
+        if (vertical > 0)
+        {
+            animator.SetTrigger("Jump");
         }
     }
 }
