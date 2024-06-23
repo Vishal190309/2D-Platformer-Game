@@ -11,12 +11,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rg2D;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    private int health = 3;
     //private bool isGrounded;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
     [SerializeField] private LayerMask groundedLayer;
     [SerializeField] private ScoreController scoreController;
     [SerializeField] private HealthController healthController;
+    [SerializeField] private GameOverController gameOverController;
 
     private bool crouched = false;
     private Vector2 initColliderSize;
@@ -48,9 +50,13 @@ public class PlayerController : MonoBehaviour
 
     public void ReduceHealth(int damage)
     {
-
-        healthController.DecreaseHealth(damage);
-
+        health -= damage;
+        healthController.updateHealth(health);
+        if(health <= 0)
+        {
+            gameOverController.PlayerDied();
+            this.enabled = false;
+        }
 
     }
     void MoveCharacter(float horizontal)

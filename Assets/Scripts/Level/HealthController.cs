@@ -7,13 +7,12 @@ using UnityEngine.SceneManagement;
 public class HealthController : MonoBehaviour
 {
     // Start is called before the first frame update
-    int health =3;
     TextMeshProUGUI healthText;
     // Start is called before the first frame update
     void Start()
     {
         healthText = gameObject.GetComponent<TextMeshProUGUI>();
-        RefereshUI();
+        updateHealth(3);
     }
 
     // Update is called once per frame
@@ -22,18 +21,11 @@ public class HealthController : MonoBehaviour
 
     }
 
-    void RefereshUI()
-    {
-        healthText.text = "Score: " + health;
-    }
+    
 
-    public void DecreaseHealth(int damage)
+    public void updateHealth(int health)
     {
-        health -= damage;
-        RefereshUI();
-        if (health <= 0)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        healthText.text = "Health: " + health;
+        
     }
 }
