@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpKey()
     {
-        //scoreController.IncreaseScore(10);
+        scoreController.IncreaseScore(10);
     }
 
     void MoveCharacter(float horizontal)
