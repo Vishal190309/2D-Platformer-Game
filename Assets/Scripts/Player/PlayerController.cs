@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private bool crouched = false;
     private Vector2 initColliderSize;
     private Vector2 initColliderOffset;
-   
+
     void Start()
     {
         initColliderSize = boxCollider2D.size;
@@ -20,29 +20,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        float vecticalInput = Input.GetAxisRaw("Vertical");
-        playJumpAnimation(vecticalInput);
-        crouch(Input.GetKeyDown(KeyCode.LeftControl));
-        Debug.Log(speed);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vecticalInput = Input.GetAxisRaw("Jump");
         if (animator != null)
         {
-            animator.SetFloat("Speed",Mathf.Abs(speed));
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
             animator.SetBool("Crouch", crouched);
         }
+        playJumpAnimation(vecticalInput);
+        crouch(Input.GetKeyDown(KeyCode.LeftControl));
+        RotatePlayer(horizontal);
+
+    }
+
+    private void RotatePlayer(float horizontal)
+    {
         Vector3 scale = transform.localScale;
-        if (speed < 0f)
+        if (horizontal < 0f)
         {
-           scale.x = -1f * Mathf.Abs(speed);
+            scale.x = -1f * Mathf.Abs(horizontal);
         }
-        else if(speed>0f)
+        else if (horizontal > 0f)
         {
-            scale.x = Mathf.Abs(speed);
+            scale.x = Mathf.Abs(horizontal);
         }
         transform.localScale = scale;
-
-
-
     }
 
     void crouch(bool crouch)
@@ -70,7 +72,11 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0)
         {
-            animator.SetTrigger("Jump");
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
         }
     }
 }
