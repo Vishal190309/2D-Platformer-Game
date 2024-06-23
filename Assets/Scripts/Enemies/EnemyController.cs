@@ -10,6 +10,7 @@ public class EnmeyController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     public float speed;
+    public float damage =1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,5 +73,16 @@ public class EnmeyController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            playerController.ReduceHealth((int)damage);
+        }
+    }
+
     
+
+
 }
