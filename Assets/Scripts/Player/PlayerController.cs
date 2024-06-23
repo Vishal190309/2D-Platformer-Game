@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
     [SerializeField] private LayerMask groundedLayer;
+    [SerializeField] private ScoreController scoreController;
 
     private bool crouched = false;
     private Vector2 initColliderSize;
@@ -36,6 +37,11 @@ public class PlayerController : MonoBehaviour
         PlayAnimations(horizontal, vectical);
         RotatePlayer(horizontal);
 
+    }
+
+    public void PickUpKey()
+    {
+        scoreController.IncreaseScore(10);
     }
 
     void MoveCharacter(float horizontal)
