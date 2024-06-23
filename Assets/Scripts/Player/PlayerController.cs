@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float castDistance;
     [SerializeField] private LayerMask groundedLayer;
     [SerializeField] private ScoreController scoreController;
+    [SerializeField] private HealthController healthController;
 
     private bool crouched = false;
     private Vector2 initColliderSize;
@@ -44,6 +46,13 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    public void ReduceHealth(int damage)
+    {
+
+        healthController.DecreaseHealth(damage);
+
+
+    }
     void MoveCharacter(float horizontal)
     {
         Vector3 position = transform.position;
