@@ -955,30 +955,12 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1506993060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4334572837284442524, guid: 4ef193e2556666e4589fbf2ab9e5f3b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3950582638535504364}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1506993061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 564464615811437588, guid: 4ef193e2556666e4589fbf2ab9e5f3b5,
     type: 3}
   m_PrefabInstance: {fileID: 3950582638535504364}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1506993062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506993060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ece88cfac09d4f4c9cdec874e4a31eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!850595691 &1865685084
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1106,19 +1088,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Key
       objectReference: {fileID: 0}
-    - target: {fileID: 8823429117158056486, guid: 4ef193e2556666e4589fbf2ab9e5f3b5,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4334572837284442524, guid: 4ef193e2556666e4589fbf2ab9e5f3b5,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1506993062}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ef193e2556666e4589fbf2ab9e5f3b5, type: 3}
 --- !u!1001 &8864724665743303636
 PrefabInstance:
