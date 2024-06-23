@@ -23,7 +23,7 @@ public class GameOverController : MonoBehaviour
 
     private void RestartButtonClicked()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void PlayerDied()

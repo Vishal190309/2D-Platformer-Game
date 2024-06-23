@@ -9,6 +9,7 @@ public class LobbyController : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
+    public GameObject LevelSelection;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class LobbyController : MonoBehaviour
 
     private void PlayButtonClicked()
     {
-        SceneManager.LoadScene(1);
+        LevelSelection.SetActive(true);
     }
 
     // Update is called once per frame
