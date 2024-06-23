@@ -22,8 +22,7 @@ public class DeathController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("trigger");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            collision.gameObject.GetComponent<PlayerController>().ReduceHealth(3);
         }
     }
 }
