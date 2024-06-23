@@ -7,12 +7,21 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Animator animator;
     [SerializeField] private BoxCollider2D boxCollider2D;
+    private Rigidbody2D rg2D;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
+    //private bool isGrounded;
+    [SerializeField] private Vector2 boxSize;
+    [SerializeField] private float castDistance;
+    [SerializeField] private LayerMask groundedLayer;
+
     private bool crouched = false;
     private Vector2 initColliderSize;
     private Vector2 initColliderOffset;
-   
+
     void Start()
     {
+        rg2D = GetComponent<Rigidbody2D>();
         initColliderSize = boxCollider2D.size;
         initColliderOffset = boxCollider2D.offset;
     }
@@ -20,29 +29,55 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        float vecticalInput = Input.GetAxisRaw("Vertical");
-        playJumpAnimation(vecticalInput);
-        crouch(Input.GetKeyDown(KeyCode.LeftControl));
-        Debug.Log(speed);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vectical = Input.GetAxisRaw("Jump");
+        MoveCharacter(horizontal);
+        JumpCharacter(vectical);
+        PlayAnimations(horizontal, vectical);
+        RotatePlayer(horizontal);
+
+    }
+
+    void MoveCharacter(float horizontal)
+    {
+        Vector3 position = transform.position;
+        position.x += horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+
+    void JumpCharacter(float vertical)
+    {
+        if (vertical > 0 &&  IsGrounded() )
+        {
+            rg2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+    }
+
+   
+
+    private void PlayAnimations(float horizontal, float vectical)
+    {
         if (animator != null)
         {
-            animator.SetFloat("Speed",Mathf.Abs(speed));
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
             animator.SetBool("Crouch", crouched);
         }
+        playJumpAnimation(vectical);
+        crouch(Input.GetKeyDown(KeyCode.LeftControl));
+    }
+
+    private void RotatePlayer(float horizontal)
+    {
         Vector3 scale = transform.localScale;
-        if (speed < 0f)
+        if (horizontal < 0f)
         {
-           scale.x = -1f * Mathf.Abs(speed);
+            scale.x = -1f * Mathf.Abs(horizontal);
         }
-        else if(speed>0f)
+        else if (horizontal > 0f)
         {
-            scale.x = Mathf.Abs(speed);
+            scale.x = Mathf.Abs(horizontal);
         }
         transform.localScale = scale;
-
-
-
     }
 
     void crouch(bool crouch)
@@ -70,7 +105,44 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0)
         {
-            animator.SetTrigger("Jump");
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump",false);
+        }
+        
+    }
+
+    private bool IsGrounded()
+    {
+        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundedLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position  - transform.up * castDistance, boxSize);
+    }
+    /*  private void OnCollisionEnter2D(Collision2D collision)
+      {
+          if (collision.gameObject.tag == "Ground")
+          {
+              isGrounded = true;
+          }
+      }
+
+      private void OnCollisionExit2D(Collision2D collision)
+      {
+          if(collision.gameObject.tag == "Ground")
+          {
+              isGrounded = false;
+          }
+      }*/
 }
