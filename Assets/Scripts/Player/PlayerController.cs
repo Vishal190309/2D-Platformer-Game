@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void playJumpAnimation(float vertical)
     {
-        if (vertical > 0)
+        if (vertical > 0 && IsGrounded())
         {
             animator.SetBool("Jump", true);
         }
