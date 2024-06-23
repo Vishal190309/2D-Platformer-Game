@@ -287,11 +287,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4214664267312064694}
-  boxCollider2D: {fileID: 0}
+  boxCollider2D: {fileID: 5002115448312429061}
   speed: 10
   jumpForce: 50
-  boxSize: {x: 0.3, y: 0.05}
-  castDistance: 0.06
+  boxSize: {x: 0.3, y: 0.1}
+  castDistance: 0.12
   groundedLayer:
     serializedVersion: 2
     m_Bits: 64
