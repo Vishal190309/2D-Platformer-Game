@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     private int health = 3;
-    //private bool isGrounded;
+    private bool IsGrounded;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
     [SerializeField] private LayerMask groundedLayer;
@@ -36,10 +36,10 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vectical = Input.GetAxisRaw("Jump");
-        MoveCharacter(horizontal);
         JumpCharacter(vectical);
-        PlayAnimations(horizontal, vectical);
+        MoveCharacter(horizontal);
         RotatePlayer(horizontal);
+        PlayAnimations(horizontal, vectical);
 
     }
 
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     void JumpCharacter(float vertical)
     {
-        if (vertical > 0 &&  IsGrounded() )
+        if (vertical > 0 &&  IsGrounded )
         {
             rg2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     void playJumpAnimation(float vertical)
     {
-        if (vertical > 0 && IsGrounded())
+        if (vertical > 0 && IsGrounded)
         {
             animator.SetBool("Jump", true);
         }
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private bool IsGrounded()
+   /* private bool IsGrounded()
     {
         if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundedLayer))
         {
@@ -145,25 +145,25 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position  - transform.up * castDistance, boxSize);
     }
-    /*  private void OnCollisionEnter2D(Collision2D collision)
-      {
-          if (collision.gameObject.tag == "Ground")
-          {
-              isGrounded = true;
-          }
-      }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            IsGrounded = true;
+        }
+    }
 
-      private void OnCollisionExit2D(Collision2D collision)
-      {
-          if(collision.gameObject.tag == "Ground")
-          {
-              isGrounded = false;
-          }
-      }*/
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            IsGrounded = false;
+        }
+    }
 }

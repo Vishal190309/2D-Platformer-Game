@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject LevelCompletUI;
     void Start()
     {
         
@@ -21,7 +22,8 @@ public class LevelController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            SceneManager.LoadScene("SecondLevel");
+            LevelManager.Instance.SetCurrentLevelComplete();
+            LevelCompletUI.SetActive(true);
         }
     }
 }

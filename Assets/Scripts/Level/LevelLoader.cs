@@ -23,6 +23,25 @@ public class LevlLoader : MonoBehaviour
 
     private void OnClick()
     {
-        SceneManager.LoadScene(LevelName);
+        if (LevelName == "Level1")
+        {
+            SceneManager.LoadScene(LevelName);
+        }
+        else
+        {
+            LevelStatus status = LevelManager.Instance.GetLevelStatus(LevelName);
+            switch(status)
+            {
+                case LevelStatus.Locked:
+                    Debug.Log("This level is locked, unlock it to play");
+                    break;
+                case LevelStatus.Unlocked:
+                    SceneManager.LoadScene(LevelName);
+                    break;
+                case LevelStatus.Completed:
+                    SceneManager.LoadScene(LevelName);
+                    break;
+            }
+        }
     }
 }
