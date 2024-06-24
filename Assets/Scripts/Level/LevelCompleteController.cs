@@ -24,8 +24,7 @@ public class LevelCompleteController : MonoBehaviour
     private void NextButtonClicked()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(SceneManager.sceneCount);
-        if (index < SceneManager.sceneCount)
+        if (index < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(index + 1);
         }

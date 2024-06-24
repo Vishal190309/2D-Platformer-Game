@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -29,5 +30,22 @@ public class LevelManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(level, (int)status);
 
+    }
+
+    public void SetCurrentLevelComplete()
+    {
+        SetLevelStatus(SceneManager.GetActiveScene().name, LevelStatus.Completed);
+
+        string nextSceneName = NameFromIndex(SceneManager.GetActiveScene().buildIndex + 1);
+        SetLevelStatus(nextSceneName, LevelStatus.Unlocked);
+    }
+
+    private string NameFromIndex(int BuildIndex)
+    {
+        string path = SceneUtility.GetScenePathByBuildIndex(BuildIndex);
+        int slash = path.LastIndexOf('/');
+        string name = path.Substring(slash + 1);
+        int dot = name.LastIndexOf('.');
+        return name.Substring(0, dot);
     }
 }

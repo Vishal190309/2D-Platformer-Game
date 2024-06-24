@@ -22,6 +22,7 @@ public class LevelController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            LevelManager.Instance.SetCurrentLevelComplete();
             LevelCompletUI.SetActive(true);
         }
     }
