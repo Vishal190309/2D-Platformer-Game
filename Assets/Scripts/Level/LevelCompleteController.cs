@@ -18,11 +18,13 @@ public class LevelCompleteController : MonoBehaviour
 
     private void MainMenuButtonClicked()
     {
+        SoundManager.Instance.PlaySoundEffect(Sound.BUTTON_CLICK);
         SceneManager.LoadScene(0);
     }
 
     private void NextButtonClicked()
     {
+        SoundManager.Instance.PlaySoundEffect(Sound.BUTTON_CLICK);
         int index = SceneManager.GetActiveScene().buildIndex;
         if (index < SceneManager.sceneCountInBuildSettings)
         {

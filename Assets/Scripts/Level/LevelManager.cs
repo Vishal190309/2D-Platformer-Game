@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -17,6 +18,13 @@ public class LevelManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    private void Start()
+    {
+        if (GetLevelStatus("Level1") == LevelStatus.Locked)
+        {
+            SetLevelStatus("Level1", LevelStatus.Unlocked);
         }
     }
 

@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    void PlayFootStepSound()
+    {
+        SoundManager.Instance.PlaySoundEffect(Sound.PLAYER_MOVE);
+    }
     public void ReduceHealth(int damage)
     {
         health -= damage;
@@ -126,6 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0 && IsGrounded)
         {
+            SoundManager.Instance.PlaySoundEffect(Sound.PLAYER_JUMP,0.01f);
             animator.SetBool("Jump", true);
         }
         else
