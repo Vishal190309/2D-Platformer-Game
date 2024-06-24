@@ -25,6 +25,7 @@ public class LevlLoader : MonoBehaviour
     {
         if (LevelName == "Level1")
         {
+            SoundManager.Instance.PlaySoundEffect(Sound.BUTTON_CLICK);
             SceneManager.LoadScene(LevelName);
         }
         else
@@ -36,9 +37,11 @@ public class LevlLoader : MonoBehaviour
                     Debug.Log("This level is locked, unlock it to play");
                     break;
                 case LevelStatus.Unlocked:
+                    SoundManager.Instance.PlaySoundEffect(Sound.BUTTON_CLICK);
                     SceneManager.LoadScene(LevelName);
                     break;
                 case LevelStatus.Completed:
+                    SoundManager.Instance.PlaySoundEffect(Sound.BUTTON_CLICK);
                     SceneManager.LoadScene(LevelName);
                     break;
             }
